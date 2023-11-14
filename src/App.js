@@ -1,17 +1,34 @@
-import { Canvas } from "@react-three/fiber";
-import * as THREE from 'three'
+import "./styles.css"
 
-function App() {
+import { Routes, Route } from 'react-router-dom';
+
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Verification from "./pages/Verification";
+import Lesson from "./components/Lesson";
+import Update from "./components/Update";
+import Progress from "./components/Progess";
+import Quiz from "./components/Quiz";
+import ARView from "./components/ARView";
+
+const App = () => {
   return (
-    <div>
-       <Canvas shadows>
-        <mesh visible userData={{ hello: 'world' }} position={[1, 2, 3]} rotation={[Math.PI / 2, 0, 0]}>
-          <sphereGeometry args={[1, 16, 16]} />
-          <meshStandardMaterial color="hotpink" transparent />
-        </mesh>
-      </Canvas>
-    </div>
-  );
+    <Header>
+      <Routes>
+        <Route path="/signup" element={<SignUp />}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/verification"  element={<Verification />}/>
+        <Route path="/lesson"  element={<Lesson />}/>
+        <Route path="/update"  element={<Update />}/>
+        <Route path="/progress"  element={<Progress />}/>
+        <Route path="/quiz"  element={<Quiz />}/>
+        <Route path="/arview"  element={<ARView />}/> 
+      </Routes>
+      <Footer />
+    </Header>
+  )
 }
 
-export default App;
+export default App
