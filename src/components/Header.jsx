@@ -8,10 +8,10 @@ const user = {
   imageUrl: '/images/user_avatar.png'
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Course', href: '#', current: false },
-  { name: 'Quiz', href: '#', current: false },
-  { name: 'Parents Guid', href: '#', current: false },
+  { name: 'Dashboard', href: '/dashboard', current: true },
+  { name: 'Course', href: '/', current: false },
+  { name: 'Quiz', href: '/quiz', current: false },
+  { name: 'Parents Guid', href: '/parentsguide', current: false },
   { name: 'About Us', href: '#', current: false }
 ]
 const userNavigation = [

@@ -2,7 +2,8 @@ import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
-    sendEmailVerification 
+    sendEmailVerification,
+    signInWithEmailAndPassword
 } from "firebase/auth";
 import { 
     getFirestore, 
@@ -57,4 +58,25 @@ export const signUp = async (firstName, lastName, email, password) => {
     .catch((error) => {
         console.log(error)
     });
+}
+
+export const signIn = async (email, password) => {
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        console.log('hello')
+        const user = userCredential.user;
+        console.log(user)
+        if( !user.emailVerified){
+            console.log('not verified')
+            return "verification"
+        } else {
+            console.log(user.displayName)
+            return "success"
+        }
+    } catch (error) {
+        console.log(error.code, error.message)
+        console.log('error occured')
+        return "error"
+    }
 }

@@ -13,3 +13,7 @@ body {
     linear-gradient(0deg, #738D8C, #738D8C),
     linear-gradient(0deg, rgba(144, 209, 205, 0.2), rgba(144, 209, 205, 0.2));
 }
+
+.pos-absolute {
+    position: absolute !important;
+}
