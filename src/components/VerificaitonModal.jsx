@@ -25,7 +25,7 @@ const VerificaitonModal = ({showModal, setShowModal}) => {
                               <button onClick={()=>setShowModal(false)} className="px-8 py-3 text-white bg-red-700 rounded-full hover:scale-95">
                                   Cancel
                               </button>
-                          <Link to='/login'>
+                          <Link to='/verification'>
                               <button className="px-8 py-3 text-white bg-indigo-900 rounded-full hover:scale-95">
                                   Verify Email
                               </button>

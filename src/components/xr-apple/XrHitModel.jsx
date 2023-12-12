@@ -10,8 +10,8 @@ import { useSearchParams } from "react-router-dom";
 
 function Model(props) {
   let [searchParams] = useSearchParams();
-  console.log(searchParams.get("id"))
-  const { scene } = useGLTF('/models/ambulance.gltf')
+  let id = searchParams.get("id")
+  const { scene } = useGLTF(`/models/${id}.gltf`)
   return <primitive object={scene} {...props} />
 }
 
