@@ -3,8 +3,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
+  name: 'User',
+  email: 'noone@kdisar.com',
   imageUrl: '/images/user_avatar.png'
 }
 const navigation = [
