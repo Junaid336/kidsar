@@ -10,47 +10,23 @@ import { useGLTF,
 
 export default function Model(props) {
   const group = useRef()
-  const { nodes, materials } = useGLTF('models/ambulance.gltf')
+  const { nodes, materials } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bear/model.gltf')
   return (
     <group ref={group} {...props} dispose={null}>
-<group scale={-1} >
-<mesh geometry={nodes.Mesh_wheel_frontLeft003.geometry} material={nodes.Mesh_wheel_frontLeft003.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft003_1.geometry} material={nodes.Mesh_wheel_frontLeft003_1.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft003_2.geometry} material={nodes.Mesh_wheel_frontLeft003_2.material} />
-</group>
-<mesh geometry={nodes.Mesh_body.geometry} material={nodes.Mesh_body.material} />
-<mesh geometry={nodes.Mesh_body_1.geometry} material={nodes.Mesh_body_1.material} />
-<mesh geometry={nodes.Mesh_body_2.geometry} material={nodes.Mesh_body_2.material} />
-<mesh geometry={nodes.Mesh_body_3.geometry} material={nodes.Mesh_body_3.material} />
-<mesh geometry={nodes.Mesh_body_4.geometry} material={materials.lightFront} />
-<mesh geometry={nodes.Mesh_body_5.geometry} material={nodes.Mesh_body_5.material} />
-<mesh geometry={nodes.Mesh_body_6.geometry} material={materials.lightBlue} />
-<mesh geometry={nodes.Mesh_doorLeft.geometry} material={nodes.Mesh_doorLeft.material} />
-<mesh geometry={nodes.Mesh_doorLeft_1.geometry} material={nodes.Mesh_doorLeft_1.material} />
-<mesh geometry={nodes.Mesh_doorLeft_2.geometry} material={nodes.Mesh_doorLeft_2.material} />
-<mesh geometry={nodes.Mesh_doorLeft_3.geometry} material={nodes.Mesh_doorLeft_3.material} />
-<mesh geometry={nodes.Mesh_doorRight.geometry} material={nodes.Mesh_doorRight.material} />
-<mesh geometry={nodes.Mesh_doorRight_1.geometry} material={nodes.Mesh_doorRight_1.material} />
-<mesh geometry={nodes.Mesh_doorRight_2.geometry} material={nodes.Mesh_doorRight_2.material} />
-<mesh geometry={nodes.Mesh_doorRight_3.geometry} material={nodes.Mesh_doorRight_3.material} />
-<group scale={-1} >
-<mesh geometry={nodes.Mesh_wheel_frontLeft001.geometry} material={nodes.Mesh_wheel_frontLeft001.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft001_1.geometry} material={nodes.Mesh_wheel_frontLeft001_1.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft001_2.geometry} material={nodes.Mesh_wheel_frontLeft001_2.material} />
-</group>
-<group scale={-1} >
-<mesh geometry={nodes.Mesh_wheel_frontLeft002.geometry} material={nodes.Mesh_wheel_frontLeft002.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft002_1.geometry} material={nodes.Mesh_wheel_frontLeft002_1.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft002_2.geometry} material={nodes.Mesh_wheel_frontLeft002_2.material} />
-</group>
-<group scale={-1} >
-<mesh geometry={nodes.Mesh_wheel_frontLeft.geometry} material={nodes.Mesh_wheel_frontLeft.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft_1.geometry} material={nodes.Mesh_wheel_frontLeft_1.material} />
-<mesh geometry={nodes.Mesh_wheel_frontLeft_2.geometry} material={nodes.Mesh_wheel_frontLeft_2.material} />
-</group>
+      <mesh geometry={nodes.character_bear.geometry} material={nodes.character_bear.material} rotation={[Math.PI / 2, 0, 0,]} >
+        <mesh geometry={nodes.character_bearArmLeft.geometry} material={nodes.character_bearArmLeft.material} position={[0.2, 0, -0.63,]} />
+        <mesh geometry={nodes.character_bearArmRight.geometry} material={nodes.character_bearArmRight.material} position={[-0.2, 0, -0.63,]} />
+        <group position={[0, 0, -0.7,]} >
+        <mesh geometry={nodes.Cube1337.geometry} material={materials['Black.025']} />
+        <mesh geometry={nodes.Cube1337_1.geometry} material={nodes.Cube1337_1.material} />
+        </group>
+      </mesh>
 
     </group>
   )
 }
 
-useGLTF.preload('models/ambulance.gltf')
+useGLTF.preload('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bear/model.gltf')
+
+
+

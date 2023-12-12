@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-700 flex flex-col items-center justify-center">
+    <div className="my-20 bg-gray-700 bg-opacity-40 flex flex-col items-center justify-center px-5">
       <h1 className="text-4xl font-bold text-center mb-8 text-white">Start Learning</h1>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">

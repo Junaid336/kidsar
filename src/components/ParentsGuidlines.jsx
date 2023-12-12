@@ -8,17 +8,17 @@ const ParentGuidelines = () => {
 
   // Define your guidelines here
   const guidelines = [
-    "Guideline 1: This is the first guideline for parents.",
-    "Guideline 2: This is the second guideline for parents.",
-    "Guideline 3: This is the third guideline for parents.",
-    "Guideline 4: This is the fourth guideline for parents.",
-    "Guideline 5: This is the fifth guideline for parents.",
+    "Open Chrome and navigate to the Kidar website.",
+    "Tap the three dots menu in the top right corner of the screen.",
+    "Select Add to Home screen.",
+    "In the pop-up window, enter a name for the shortcut (e.g., Kidar).",
+    "Tap Add. The Kidar shortcut will now appear on your child's home screen.",
   ];
 
   useEffect(() => {
     const showGuidelinesWithDelay = async () => {
       for (let i = currentIndex; i < guidelines.length; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Adjust delay here (in milliseconds)
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust delay here (in milliseconds)
         setShownGuidelines(prevGuidelines => {
           if (!prevGuidelines.includes(guidelines[i])) {
             return [...prevGuidelines, guidelines[i]];
@@ -33,11 +33,11 @@ const ParentGuidelines = () => {
   }, [currentIndex, guidelines]);
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-4 space-y-4">
-      <h1 className="text-3xl font-bold mb-4">Parent Guidelines</h1>
+    <div className="max-w-2xl mx-auto mt-8 p-4 space-y-4 min-h-screen min-w-screen">
+      <h1 className="text-3xl text-white font-bold mb-4">Parent Guidelines</h1>
       {shownGuidelines.map((guideline, index) => (
-        <div key={index} className=" rounded-lg p-4 shadow-md animate-fade-in">
-          <p className="text-lg">{guideline}</p>
+        <div key={index} className="rounded-lg p-4 shadow-lg animate-fade-in bg-black bg-opacity-20">
+          <p className="text-lg text-white">{guideline}</p>
         </div>
       ))}
     </div>
@@ -60,7 +60,7 @@ const styles = `
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.4s ease-in-out;
   }
 `;
 

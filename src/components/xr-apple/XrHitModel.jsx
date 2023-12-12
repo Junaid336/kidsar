@@ -1,8 +1,22 @@
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
 import { useRef, useState } from "react";
-import Model from "./Model";
+
+import { useSearchParams } from "react-router-dom";
+// import Model from "./Model";
+
+
+
+function Model(props) {
+  let [searchParams] = useSearchParams();
+  console.log(searchParams.get("id"))
+  const { scene } = useGLTF('/models/ambulance.gltf')
+  return <primitive object={scene} {...props} />
+}
+
+
+
 
 const XrHitModel = () => {
   const reticleRef = useRef();
@@ -29,7 +43,7 @@ const XrHitModel = () => {
   const placeModel = (e) => {
     let position = e.intersection.object.position.clone();
     let id = Date.now();
-    setModels([{ position, id }]);
+    setModels([{ position, id, scale: 0.5 }]);
   };
 
   return (
