@@ -1,3 +1,5 @@
+import { toast } from "react-hot-toast";
+
 import Auth from "../components/Auth";
 import VerificaitonModal from "../components/VerificaitonModal";
 
@@ -11,20 +13,20 @@ const Login = () => {
 
   const OnSubmitHandler = async (e) => {
     e.preventDefault()
-    // console.log(e.target.elements.email.value)
-    // console.log(e.target.elements.password.value)
-    const res = await signIn(e.target.elements.email.value, e.target.elements.password.value)
-
-    if(res === "success"){
-      navigate("/")
-    }
-    else if(res === "verification"){
-      setShowModal(true)
-      console.log(res)
-    }
-    else {
-      console.log("hello error")
-      console.log(res)
+    try {
+      const res = await signIn(e.target.elements.email.value, e.target.elements.password.value);
+      console.log("response in login : " ,  res);
+      if(res.success) {
+        toast.success("Logged In Successfully!");
+        navigate("/");
+      } else if (res.error === "verification") {
+        setShowModal(true);
+      } else {
+        toast.error("Invalid Credentials!");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong!");
     }
   }
 
@@ -33,7 +35,7 @@ const Login = () => {
       <Auth mode='login' OnSubmitHandler={OnSubmitHandler}/>
       <VerificaitonModal showModal={showModal} setShowModal={setShowModal} />
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;

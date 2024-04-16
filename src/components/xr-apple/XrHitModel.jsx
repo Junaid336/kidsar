@@ -43,7 +43,7 @@ const XrHitModel = () => {
   const placeModel = (e) => {
     let position = e.intersection.object.position.clone();
     let id = Date.now();
-    setModels([{ position, id, scale: 0.5 }]);
+    setModels([{ position, id, scale: [0.1, 0.1, 0.1] }]);
   };
 
   return (

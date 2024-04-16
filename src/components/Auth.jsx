@@ -1,10 +1,15 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import GoogleButton from './GoogleButton'
 
 const Auth = ({mode, OnSubmitHandler}) => {
     const passRef = useRef(null)
-    
+    const [isLoading, setIsLoading] = useState(false);
+    const handleSubmit = async (e) => {
+        setIsLoading(true);
+        await OnSubmitHandler(e);
+        setIsLoading(false);
+    }
     return (
         <>
         {/* Container */}
@@ -23,7 +28,7 @@ const Auth = ({mode, OnSubmitHandler}) => {
                                     mode === 'login' ? 'Log Into Your Account' :'Create an Account!'
                                 }
                             </h3>
-                            <form onSubmit={(e)=>OnSubmitHandler(e)} className="px-8 pt-6 pb-8 mb-4 rounded group" noValidate >
+                            <form onSubmit={(e)=>handleSubmit(e)} className="px-8 pt-6 pb-8 mb-4 rounded group" noValidate >
                                 { 
                                     mode !== 'login' &&
                                     <div className={"mb-4 md:flex md:justify-between "}>
@@ -132,8 +137,9 @@ const Auth = ({mode, OnSubmitHandler}) => {
                                 </div>
                                 <div className="mb-6 text-center">
                                     <button
-                                        className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline group-invalid:pointer-events-none group-invalid:opacity-30"
+                                        className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline group-invalid:pointer-events-none group-invalid:opacity-30 disabled:opacity-30"
                                         type="submit"
+                                        disabled={isLoading}
                                     >
                                         {mode === 'login' ? 'Login' : 'Register Account'}
                                     </button>

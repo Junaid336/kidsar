@@ -1,7 +1,29 @@
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { continueWithGoogle } from "../firebase"
 
 const GoogleButton = () => {
+    const navigate = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault()
+        e.stopPropagation();
+        continueWithGoogle()
+        .then((res)=>{
+            toast.success("Succes!")
+            console.log(res);
+            navigate("/");
+        })
+        .catch(error => {
+            toast.error("Something went wront!");
+            console.log(error);
+        })
+    }
     return (
-        <button className="bg-white border py-2 w-full rounded-full mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 ">
+        <button 
+         onClick={handleClick}
+         className="bg-white border py-2 w-full rounded-full mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 "
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"

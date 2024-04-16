@@ -17,6 +17,9 @@ import EnglishPage from "./components/EnglishPage"
 import ParentsGuidelines from "./components/ParentsGuidlines"
 
 
+
+
+
 const App = () => {
   return (
     <Header>

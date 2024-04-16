@@ -3,14 +3,17 @@ import {
     getAuth, 
     createUserWithEmailAndPassword, 
     sendEmailVerification,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signOut
 } from "firebase/auth";
 import { 
-    getFirestore, 
-    collection, 
-    addDoc 
+    getFirestore,
+    getDoc,
+    setDoc,
+    doc
 } from "firebase/firestore";
-import { myHistory } from "../utils/history";
 
 
 const firebaseConfig = {
@@ -23,60 +26,106 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-let firebaseInstance
-let auth
-let db
+let firebaseInstance;
+let db;
+let provider;
+export let auth;
 
-
-firebaseInstance ??= initializeApp(firebaseConfig)
+firebaseInstance ??= initializeApp(firebaseConfig);
 db ??= getFirestore(firebaseInstance);
-auth ??= getAuth(firebaseInstance)
+provider ??= new GoogleAuthProvider();
+auth ??= getAuth(firebaseInstance);
+
+export const logout = async () => {
+    try {
+        await signOut(auth);
+        return {success: true}
+    }
+    catch (error) {
+        return {success: false, error: error.errorMessage}
+    }
+}
 
 export const signUp = async (firstName, lastName, email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-        // Signed up 
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        const response = await setUserInfo(email, {firstName, lastName});
 
-        try {
-            const docRef = await addDoc(collection(db, "users"), {
-              firstName,
-              lastName,
-              email
-            });
-            console.log("Document written with ID: ", docRef.id);
-
-            sendEmailVerification(auth.currentUser).then( ()=> {
-                myHistory.replace('/verification')
-            }
-            ).catch(e=> console.log(e))
-
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-        // ...
-    })
-    .catch((error) => {
-        console.log(error)
-    });
+        await sendEmailVerification(auth.currentUser)
+        return { success: true, ...response }
+    } catch (error) {
+        return { success: false}
+    }
 }
 
 export const signIn = async (email, password) => {
 
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password)
-        console.log('hello')
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         console.log(user)
         if( !user.emailVerified){
             console.log('not verified')
-            return "verification"
+            return {success: false, error: "verification"}
         } else {
-            console.log(user.displayName)
-            return "success"
+            // console.log(user.displayName)
+            const response = await getUserinfo(email);
+            return {success: true, ...response}
         }
     } catch (error) {
         console.log(error.code, error.message)
         console.log('error occured')
-        return "error"
+        return {success: false, error: error.message}
+    }
+}
+
+export const continueWithGoogle = async () => {
+    try {
+        const result = await signInWithPopup(auth, provider);
+        // The signed-in user info.
+        const user = result.user;
+        const docResponse = await setUserInfo(user.email, {name: user.displayName});
+        return { success: true , ...docResponse};
+    } catch (error) {
+        const errorMessage = error.message;
+        console.log(error);
+        return { success: false, error: errorMessage };
+    }
+};
+
+export const logOut = async () => {
+    try {
+        await signOut(auth);
+        return {success: true}
+    }
+    catch (error) {
+        return {success: false, error: error.errorMessage}
+    }
+}
+
+export const setUserInfo = async (email, data) => {
+    // let isNewUser = true;
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        // isNewUser = false;
+        console.log("Document data:", docSnap.data());
+    } else {
+    console.log("No such document!");
+    }
+    await setDoc(docRef, data, { merge: true });
+    return {...docSnap.data(), ...data, email: docSnap.id};
+}
+
+export const getUserinfo = async (email) => {
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        return {...docSnap.data(), email: docSnap.id}
+    } else {
+        console.log("No such document!");
+        return null
     }
 }

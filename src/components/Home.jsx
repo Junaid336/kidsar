@@ -1,5 +1,6 @@
 
 import { Link } from 'react-router-dom';
+import Avatar from "./Avatar"
 
 const Home = () => {
   return (
@@ -45,6 +46,7 @@ const Home = () => {
           </div>
         </Link>
       </div>
+      <Avatar />
     </div>
   );
 };
