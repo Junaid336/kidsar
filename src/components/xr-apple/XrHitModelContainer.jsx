@@ -13,7 +13,7 @@ const XrHitModelContainer = () => {
           requiredFeatures: ["hit-test"],
         }}
       />
-      <Canvas className="pos-absolute">
+      <Canvas className="pos-absolute absolute">
         <XR>
           <XrHitModel />
         </XR>

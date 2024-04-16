@@ -8,16 +8,15 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Verification from "./pages/Verification";
 import Update from "./components/Update";
-import Progress from "./components/Progess";
 import Quiz from "./components/Quiz";
 import ARView from "./components/ARView";
 import XrHitModelContainer from "./components/xr-apple/XrHitModelContainer"
 import Home from "./components/Home"
 import EnglishPage from "./components/EnglishPage"
 import ParentsGuidelines from "./components/ParentsGuidlines"
+import Dashboard from "./pages/Dashboard";
 
-
-
+//
 
 
 const App = () => {
@@ -29,7 +28,7 @@ const App = () => {
         <Route path="/verification"  element={<Verification />}/>
         <Route path="/english"  element={<EnglishPage />}/>
         <Route path="/update"  element={<Update />}/>
-        <Route path="/dashboard"  element={<Progress />}/>
+        <Route path="/dashboard"  element={<Dashboard />}/>
         <Route path="/quiz"  element={<Quiz />}/>
         <Route path="/arview"  element={<XrHitModelContainer />}/>
         <Route path="/parentsguide"  element={<ParentsGuidelines />}/> 

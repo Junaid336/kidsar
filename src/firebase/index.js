@@ -63,9 +63,7 @@ export const signIn = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        console.log(user)
         if( !user.emailVerified){
-            console.log('not verified')
             return {success: false, error: "verification"}
         } else {
             // console.log(user.displayName)
@@ -74,7 +72,6 @@ export const signIn = async (email, password) => {
         }
     } catch (error) {
         console.log(error.code, error.message)
-        console.log('error occured')
         return {success: false, error: error.message}
     }
 }
@@ -110,7 +107,6 @@ export const setUserInfo = async (email, data) => {
 
     if (docSnap.exists()) {
         // isNewUser = false;
-        console.log("Document data:", docSnap.data());
     } else {
     console.log("No such document!");
     }
@@ -122,7 +118,7 @@ export const getUserinfo = async (email) => {
     const docRef = doc(db, "users", email);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+        // console.log("Document data:", docSnap.data());
         return {...docSnap.data(), email: docSnap.id}
     } else {
         console.log("No such document!");

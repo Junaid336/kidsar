@@ -1,0 +1,11 @@
+Model Information:
+* title:	Paint Bucket with Blue paint
+* source:	https://sketchfab.com/3d-models/paint-bucket-with-blue-paint-c57b89475ceb4d66af7654bbf938e03a
+* author:	Una.K.C (https://sketchfab.com/Una.K.C)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Paint Bucket with Blue paint" (https://sketchfab.com/3d-models/paint-bucket-with-blue-paint-c57b89475ceb4d66af7654bbf938e03a) by Una.K.C (https://sketchfab.com/Una.K.C) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

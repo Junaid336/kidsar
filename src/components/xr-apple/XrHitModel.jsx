@@ -1,7 +1,11 @@
+import { Suspense } from "react";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
 import { useRef, useState } from "react";
+
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import { useSearchParams } from "react-router-dom";
 // import Model from "./Model";
@@ -11,8 +15,13 @@ import { useSearchParams } from "react-router-dom";
 function Model(props) {
   let [searchParams] = useSearchParams();
   let id = searchParams.get("id")
-  const { scene } = useGLTF(`/models/${id}.gltf`)
-  return <primitive object={scene} {...props} />
+  // const { scene } = useGLTF(`models/${id}.gltf`, true)
+  const {scene} = useLoader(GLTFLoader, 'models/b.glb')
+  return  (
+    <Suspense fallback={null}>
+      <primitive object={scene} {...props} />
+    </Suspense>
+  )
 }
 
 
@@ -43,7 +52,7 @@ const XrHitModel = () => {
   const placeModel = (e) => {
     let position = e.intersection.object.position.clone();
     let id = Date.now();
-    setModels([{ position, id, scale: [0.1, 0.1, 0.1] }]);
+    setModels([{ position, id, scale: [10, 10, 10] }]);
   };
 
   return (
