@@ -18,7 +18,7 @@ const Login = () => {
       console.log("response in login : " ,  res);
       if(res.success) {
         toast.success("Logged In Successfully!");
-        navigate("/");
+        navigate("/dashboard");
       } else if (res.error === "verification") {
         setShowModal(true);
       } else {

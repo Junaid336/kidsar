@@ -4,9 +4,9 @@ import { auth, getUserinfo } from "../firebase";
 import Progress from "../components/Progess";
 
 const courses = [
-    {id: "english", title: "English"},
-    {id: "maths", title: "Maths"},
-    {id: "colors", title: "Colors"},
+    {id: "english", title: "English", href: "/english"},
+    {id: "maths", title: "Maths", href: "/english" },
+    {id: "colors", title: "Colors", href: "/english"},
 ];
 
 const Dashboard = () => {
@@ -31,7 +31,12 @@ const Dashboard = () => {
         <h2 className="text-3xl leading-6">Your Learning!</h2>
         <div className="flex justify-center gap-8 flex-wrap lg:flex-nowrap">
             {courses.map((course, index)=>(
-                <Progress key={index} progress={userData[course.id] || 0} title={course.title}/>
+                <Progress 
+                 key={index} 
+                 progress={userData[course.id] || 0} 
+                 title={course.title}
+                 resumeLink={course.href}
+                />
             ))}
         </div>
         

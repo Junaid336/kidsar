@@ -16,7 +16,7 @@ function Model(props) {
   let [searchParams] = useSearchParams();
   let id = searchParams.get("id")
   // const { scene } = useGLTF(`models/${id}.gltf`, true)
-  const {scene} = useLoader(GLTFLoader, 'models/b.glb')
+  const {scene} = useLoader(GLTFLoader, `models/${id}.glb`)
   return  (
     <Suspense fallback={null}>
       <primitive object={scene} {...props} />

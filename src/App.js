@@ -15,7 +15,7 @@ import Home from "./components/Home"
 import EnglishPage from "./components/EnglishPage"
 import ParentsGuidelines from "./components/ParentsGuidlines"
 import Dashboard from "./pages/Dashboard";
-
+import Quizes from "./pages/Quizes";
 //
 
 
@@ -29,7 +29,8 @@ const App = () => {
         <Route path="/english"  element={<EnglishPage />}/>
         <Route path="/update"  element={<Update />}/>
         <Route path="/dashboard"  element={<Dashboard />}/>
-        <Route path="/quiz"  element={<Quiz />}/>
+        <Route path="/quiz/english"  element={<Quiz />}/>
+        <Route path="/quiz" element={<Quizes />} />
         <Route path="/arview"  element={<XrHitModelContainer />}/>
         <Route path="/parentsguide"  element={<ParentsGuidelines />}/> 
         <Route path="/"  element={<Home />}/> 

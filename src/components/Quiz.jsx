@@ -1,118 +1,127 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+const engCol1 = [
+  { id: "col_1_a", alpha: "a", img: "/images/quiz/quzi_alpha_a.png" },
+  { id: "col_1_j", alpha: "j", img: "/images/quiz/quzi_alpha_j.png" },
+  { id: "col_1_c", alpha: "c", img: "/images/quiz/quzi_alpha_c.png" }
+]
+const engCol2 = [
+  { id: "col_2_j", alpha: "j", img: "/images/quiz/quzi_obj_j.png" },
+  { id: "col_2_c", alpha: "c", img: "/images/quiz/quzi_obj_c.png" },
+  { id: "col_2_a", alpha: "a", img: "/images/quiz/quzi_obj_a.png" }
+]
 
 const Quiz = () => {
-  const [question, setQuestion] = useState("Is this a 'Red' circle?");
-  const [question1, setQuestion1] = useState("Is this  'A ' alphabet?");
-  const [userAnswer, setUserAnswer] = useState(null);
+  const navigate = useNavigate();
+  const [col1Selected, setCol1Selected] = useState();
+  const [col2Selected, setCol2Selected] = useState();
+  const [count, setCount] = useState(0);
+  const [greenCount, setGreenCount] = useState(0);
+  const [orange, setOrange] = useState();
+  const [red, setRed] = useState([]);
+  const [green, setGreen] = useState([])
 
-  const handleYes = () => {
-    setUserAnswer(true);
-    // Here you can check the answer and perform actions accordingly
-    // For simplicity, I'm logging the answer here
-    console.log("User answered Yes");
-  };
+  const handleCol1Click = (alpha, id) => {
+    if(!(green.includes(id) || red.includes(id))) {
+      if(!col2Selected) {
+        if(orange === id) {
+          setOrange(null);
+          setCol1Selected(null);
+        } else {
+          setOrange(id)
+          setCol1Selected(alpha);
+        }
+      } else {
+        if(col2Selected === alpha) {
+          setGreen([...green,  `col_1_${alpha}`, `col_2_${col2Selected}`]);
+          setGreenCount(greenCount+1);
+        } else {
+          setRed([...red,  `col_1_${alpha}`, `col_2_${col2Selected}`]);
+        }
+        setOrange(null);
+        setCol1Selected(null);
+        setCol2Selected(null);
+        setCount(count + 1);
+      }
+    }
+  }
+  
+  const handleCol2Click = (alpha, id) => {
+    if(!(green.includes(alpha) || red.includes(alpha))) {
+      if(!col1Selected) {
+        if(orange === id) {
+          setOrange(null);
+          setCol2Selected(null);
+        } else {
+          setOrange(id)
+          setCol2Selected(alpha);
+        }
+      } else {
+        if(col1Selected === alpha) {
+          setGreen([...green, `col_2_${alpha}`, `col_1_${col1Selected}`]);
+          setGreenCount(greenCount+1);
+        } else {
+          setRed([...red, `col_2_${alpha}`, `col_1_${col1Selected}`]);
+        }
+        setOrange(null);
+        setCol1Selected(null);
+        setCol2Selected(null);
+        setCount(count + 1);
+      }
+    }
+  }
 
-  const handleNo = () => {
-    setUserAnswer(false);
-    // Here you can check the answer and perform actions accordingly
-    // For simplicity, I'm logging the answer here
-    console.log("User answered No");
-  };
+  useEffect(()=>{
 
-  const handleSubmit = () => {
-    // Implement your logic for handling submission here
-    console.log("Quiz submitted");
-  };
+    if(count==3){
+      if(greenCount < 2) {
+        toast.error("Failed!");
+        navigate("/quiz");
+      } else {
+        toast.success("Passed!");
+        navigate("/quiz");
+      }
+    }
+  }, [count, greenCount]);
 
-  return (
-    <div
-      className="bg-cover bg-center min-h-screen bg-transparent"
-      style={{ backgroundImage: "url('your_background_image_url_here')" }}
-    >
-      <div className="container mx-auto p-6">
-        <h1 className="text-4xl text-center font-bold text-white mb-8">Quiz</h1>
-
-        {/* First section */}
-        <div
-          className="bg-white bg-opacity-10 shadow-md rounded px-8 py-6 mb-4"
-          style={{
-            backgroundImage: "url('kid.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="mb-1">
-            <img
-              src="/images/red.png"
-              alt="First Quiz Image"
-              className=" mb-3  rounded-lg h-15 w-40 ml-10"
-            />
-            <p className="text-lg text-white">{question}</p>
-          </div>
-          <div className="flex justify-between">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleYes}
-            >
-              Yes
-            </button>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleNo}
-            >
-              No
-            </button>
-          </div>
+  return(
+    <div className="mx-auto max-w-3xl py-10">
+      <div className="flex justify-between">
+        <div className="space-y-6">
+            {engCol1.map(col => (
+              <div key={col.id}
+               className={`hover:bg-black hover:bg-opacity-20 bg-opacity-60 rounded-xl
+                ${orange === col.id ? "bg-orange-500" : ""} 
+                ${green.includes(col.id) ? "bg-green-500" : ""}
+                ${red.includes(col.id) ? "bg-red-500" : ""}
+               `}
+               onClick={()=>handleCol1Click(col.alpha, col.id)}
+              >
+                <img src={col.img} className="h-40 w-40 rounded-xl" />
+              </div>
+            ))}
         </div>
-
-        {/* Second section */}
-        <div
-          className="bg-white bg-opacity-10 shadow-md rounded px-8 py-6"
-          style={{
-            backgroundImage:
-              "url('your_second_section_background_image_url_here')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="mb-1">
-            <img
-              src="/images/A.png"
-              alt="Second Quiz Image"
-              className="mb-3 rounded-lg  h-15 w-40 ml-10"
-            />
-            <p className="text-lg text-white">{question1}</p>
-          </div>
-          <div className="flex justify-between">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleYes}
-            >
-              Yes
-            </button>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleNo}
-            >
-              No
-            </button>
-          </div>
-        </div>
-
-        {/* Submit button */}
-        <div className="fixed bottom-0 left-0 w-full bg-transparent p-4">
-          <div className="container mx-auto flex justify-center">
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </div>
+        <div className="space-y-6">
+            {engCol2.map(col => (
+              <div key={col.id}
+              className={`hover:bg-black hover:bg-opacity-20 bg-opacity-60 rounded-xl cursor-pointer
+                ${orange === col.id ? "bg-orange-500" : ""} 
+                ${green.includes(col.id) ? "bg-green-500" : ""}
+                ${red.includes(col.id) ? "bg-red-500" : ""}
+               `}
+              onClick={()=>handleCol2Click(col.alpha, col.id)}
+              >
+                <img src={col.img} className="h-40 w-40 rounded-xl" />
+              </div>
+            ))}
         </div>
       </div>
+
     </div>
-  );
+  )
+    
 };
 
 export default Quiz;
